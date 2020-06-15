@@ -1,24 +1,17 @@
 # GUI.py
 # RUN THIS FILE
 import pygame
+from solver import solve, valid
 import time
 pygame.font.init()
 
 
 class Grid:
     # To change the starting board change this
-    board = [
-        [7, 8, 0, 4, 0, 0, 1, 2, 0],
-        [6, 0, 0, 0, 7, 5, 0, 0, 9],
-        [0, 0, 0, 6, 0, 1, 0, 7, 8],
-        [0, 0, 7, 0, 4, 0, 2, 6, 0],
-        [0, 0, 1, 0, 5, 0, 9, 3, 0],
-        [9, 0, 4, 0, 6, 0, 0, 0, 5],
-        [0, 7, 0, 3, 0, 0, 0, 1, 2],
-        [1, 2, 0, 0, 0, 7, 4, 0, 0],
-        [0, 4, 9, 2, 0, 6, 0, 0, 7]
-    ]
-
+    board = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,7,0,2],[0,0,3,0,0,0,6,0,0],
+            [0,0,0,5,0,0,0,0,0],[0,0,1,6,0,0,3,0,0],[0,5,6,4,0,0,0,0,0],
+            [0,0,0,0,1,0,0,9,0],[0,0,0,0,2,0,0,7,0],[0,0,0,0,3,0,0,0,4]]
+            
     def __init__(self, rows, cols, width, height):
         self.rows = rows
         self.cols = cols
@@ -203,7 +196,7 @@ def main():
                             print("Success")
                         else:
                             print("Wrong")
-                            strikes += 1
+                            #strikes += 1
                         key = None
 
                         if board.is_finished():

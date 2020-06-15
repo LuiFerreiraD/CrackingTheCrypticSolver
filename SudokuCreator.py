@@ -7,10 +7,8 @@ sys.setrecursionlimit(29000)
 matrix = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,7,0,2],[0,0,3,0,0,0,6,0,0],
             [0,0,0,5,0,0,0,0,0],[0,0,1,6,0,0,3,0,0],[0,5,6,4,0,0,0,0,0],
             [0,0,0,0,1,0,0,9,0],[0,0,0,0,2,0,0,7,0],[0,0,0,0,3,0,0,0,4]]
-try:
-    grid = matrix
-except:
-    grid = np.zeros([9,9], dtype=int)
+
+grid = matrix
 
 global matrix_DoF
 matrix_DoF = [[9 for _ in range(9)] for _ in range(9)]
