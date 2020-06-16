@@ -1,14 +1,21 @@
+#%%
 import numpy as np
 import pprint
 import sys
 import numpy.ma as ma
 sys.setrecursionlimit(29000)
+from copy import deepcopy
 
+#%%
 matrix = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,7,0,2],[0,0,3,0,0,0,6,0,0],
             [0,0,0,5,0,0,0,0,0],[0,0,1,6,0,0,3,0,0],[0,5,6,4,0,0,0,0,0],
             [0,0,0,0,1,0,0,9,0],[0,0,0,0,2,0,0,7,0],[0,0,0,0,3,0,0,0,4]]
 
 grid = matrix
+
+global base_grid
+base_grid = deepcopy(grid)
+
 
 global matrix_DoF
 matrix_DoF = [[9 for _ in range(9)] for _ in range(9)]
@@ -18,13 +25,24 @@ global options
 options = [(-1,-2),(-1,2),(-2,1),(-2,-1),(1,2),(1,-2),(2,1),(2,-1)] #x,y possibilities
 
 def print_sudoku(board):
-    print("+" + "---+"*9)
+    global base_grid
+    a_1 = "┃" + ("━━━━"*9)[:-1] + "┃"
+    a = "┃" + ("┅┅┅+"*9)[:-1] + "┃"
+    b = "┃" + ("   +   +   ┋"*3)[:-1] + "┃"
+
+    #a = '\033[47m' + a + '\033[0m'
+    #b = '\033[47m' + b + '\033[0m'
+    print(a_1)
     for i, row in enumerate(board):
-        print(("|" + " {}   {}   {} |"*3).format(*[x if x != 0 else " " for x in row]))
-        if i % 3 == 2:
-            print("+" + "---+"*9)
+        print((("┃" + " {}   {}   {} ┋"*3)[:-1] + '┃').format(*[' ' if x==0 else '\033[92m' + str(x) + '\033[0m' if base_grid[i][j] == x else  '\033[34m' + str(x) + '\033[0m' for j, x in enumerate(row)]))
+        if i % 3 == 2 and i !=8:
+            print(a)
+        elif i == 8:
+            print(a_1)
         else:
-            print("+" + "   +"*9)
+            print(b)
+    
+
 
 def normal_sudoku_rules_apply(y,x,n):
     global grid
@@ -110,7 +128,8 @@ def solve():
     input("More solutions?")
 
 
-print_sudoku(grid)
+#%%
+print_sudoku(base_grid)
 trying = input("Wanna see the solution? y/n ")
 if trying == 'y':
     solve()
@@ -118,3 +137,5 @@ else: print("Fuck you, then!")
 
 
     
+
+# %%
